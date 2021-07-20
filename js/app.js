@@ -5,11 +5,11 @@ const seattle = {
   Minimum: 23,
   Maximum: 65,
   Average: 6.3,
-  // hours: ['6 am', '7 am', '8 am', '9 am', '10 am', '11 am', '12 pm', '1 pm', '2 pm', '3 pm', '4 pm', '5 pm', '6 pm', '7 pm'],
+  hours: ['6 am', '7 am', '8 am', '9 am', '10 am', '11 am', '12 pm', '1 pm', '2 pm', '3 pm', '4 pm', '5 pm', '6 pm', '7 pm'],
   hourlyTotal: [],
   dailyTotal: 0,
   getCookies: function() {
-    for(let i=0; i < 12; i++){
+    for(let i=0; i < this.hours.length; i++){
       let randNum = Math.floor(randomTotal(this.Minimum, this.Maximum) * this.Average);
       console.log(typeof(randNum));
       this.hourlyTotal[i] = randNum;
@@ -29,10 +29,11 @@ const tokyo = {
   Minimum: 3,
   Maximum: 24,
   Average: 1.2,
+  hours: ['6 am', '7 am', '8 am', '9 am', '10 am', '11 am', '12 pm', '1 pm', '2 pm', '3 pm', '4 pm', '5 pm', '6 pm', '7 pm'],
   hourlyTotal: [],
   dailyTotal: 0,
   getCookies: function() {
-    for(let i=0; i < 12; i++){
+    for(let i=0; i < this.hours.length; i++){
       let randNum = Math.floor(randomTotal(this.Minimum, this.Maximum) * this.Average);
       console.log(typeof(randNum));
       this.hourlyTotal[i] = randNum;
@@ -52,10 +53,11 @@ const dubai = {
   Minimum: 11,
   Maximum: 38,
   Average: 3.7,
+  hours: ['6 am', '7 am', '8 am', '9 am', '10 am', '11 am', '12 pm', '1 pm', '2 pm', '3 pm', '4 pm', '5 pm', '6 pm', '7 pm'],
   hourlyTotal: [],
   dailyTotal: 0,
   getCookies: function() {
-    for(let i=0; i < 12; i++){
+    for(let i=0; i < this.hours.length; i++){
       let randNum = Math.floor(randomTotal(this.Minimum, this.Maximum) * this.Average);
       console.log(typeof(randNum));
       this.hourlyTotal[i] = randNum;
@@ -75,10 +77,11 @@ const paris = {
   Minimum: 20,
   Maximum: 38,
   Average: 2.3,
+  hours: ['6 am', '7 am', '8 am', '9 am', '10 am', '11 am', '12 pm', '1 pm', '2 pm', '3 pm', '4 pm', '5 pm', '6 pm', '7 pm'],
   hourlyTotal: [],
   dailyTotal: 0,
   getCookies: function() {
-    for(let i=0; i < 12; i++){
+    for(let i=0; i < this.hours.length; i++){
       let randNum = Math.floor(randomTotal(this.Minimum, this.Maximum) * this.Average);
       console.log(typeof(randNum));
       this.hourlyTotal[i] = randNum;
@@ -98,10 +101,11 @@ const lima = {
   Minimum: 2,
   Maximum: 16,
   Average: 4.6,
+  hours: ['6 am', '7 am', '8 am', '9 am', '10 am', '11 am', '12 pm', '1 pm', '2 pm', '3 pm', '4 pm', '5 pm', '6 pm', '7 pm'],
   hourlyTotal: [],
   dailyTotal: 0,
   getCookies: function() {
-    for(let i=0; i < 12; i++){
+    for(let i=0; i < this.hours.length; i++){
       let randNum = Math.floor(randomTotal(this.Minimum, this.Maximum) * this.Average);
       console.log(typeof(randNum));
       this.hourlyTotal[i] = randNum;
@@ -142,15 +146,18 @@ function renderShop(shop){
     h2Elem.textContent = shop.Name;
     articleElem.appendChild(h2Elem);
     let pElem = document.createElement('p');
-    pElem.textContent = 'Cookies Sold by the Hour.';
+    pElem.textContent = 'Cookies Sold by the Hour:';
     articleElem.appendChild(pElem);
     let ulElem = document.createElement('ul');
     articleElem.appendChild(ulElem);
     for(let i = 0; i < shop.hourlyTotal.length; i++){
       let liElem = document.createElement('li');
-      liElem.textContent = shop.shop.hourlyTotal[i];
+      liElem.textContent = `${shop.hours[i]}: ${shop.hourlyTotal[i]} cookies`;
       ulElem.appendChild(liElem);
     }
+    let liElem = document.createElement('li');
+    liElem.textContent = `Total: ${shop.dailyTotal}`;
+    ulElem.appendChild(liElem);
   }
   
   for (let i = 0; i < cookieShops.length; i++){
