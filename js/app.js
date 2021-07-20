@@ -13,7 +13,6 @@ const seattle = {
       let randNum = Math.floor(randomTotal(this.Minimum, this.Maximum) * this.Average);
       console.log(typeof(randNum));
       this.hourlyTotal[i] = randNum;
-      // this.hourlyTotal[i] = (i+6) + ':00 : ' + randNum;
     }
   },
   getDailyTotal: function() {
@@ -22,7 +21,7 @@ const seattle = {
       console.log (this.dailyTotal);
     }
   }
-}
+};
 
 const tokyo = {
   Name: 'Tokyo',
@@ -37,7 +36,6 @@ const tokyo = {
       let randNum = Math.floor(randomTotal(this.Minimum, this.Maximum) * this.Average);
       console.log(typeof(randNum));
       this.hourlyTotal[i] = randNum;
-      // this.hourlyTotal[i] = (i+6) + ':00 : ' + randNum;
     }
   },
   getDailyTotal: function() {
@@ -46,7 +44,7 @@ const tokyo = {
       console.log (this.dailyTotal);
     }
   }
-}
+};
 
 const dubai = {
   Name: 'Dubai',
@@ -61,7 +59,6 @@ const dubai = {
       let randNum = Math.floor(randomTotal(this.Minimum, this.Maximum) * this.Average);
       console.log(typeof(randNum));
       this.hourlyTotal[i] = randNum;
-      // this.hourlyTotal[i] = (i+6) + ':00 : ' + randNum;
     }
   },
   getDailyTotal: function() {
@@ -70,7 +67,7 @@ const dubai = {
       console.log (this.dailyTotal);
     }
   }
-}
+};
 
 const paris = {
   Name: 'Paris',
@@ -85,7 +82,6 @@ const paris = {
       let randNum = Math.floor(randomTotal(this.Minimum, this.Maximum) * this.Average);
       console.log(typeof(randNum));
       this.hourlyTotal[i] = randNum;
-      // this.hourlyTotal[i] = (i+6) + ':00 : ' + randNum;
     }
   },
   getDailyTotal: function() {
@@ -94,7 +90,7 @@ const paris = {
       console.log (this.dailyTotal);
     }
   }
-}
+};
 
 const lima = {
   Name: 'Lima',
@@ -109,7 +105,6 @@ const lima = {
       let randNum = Math.floor(randomTotal(this.Minimum, this.Maximum) * this.Average);
       console.log(typeof(randNum));
       this.hourlyTotal[i] = randNum;
-      // this.hourlyTotal[i] = (i+6) + ':00 : ' + randNum;
     }
   },
   getDailyTotal: function() {
@@ -118,48 +113,43 @@ const lima = {
       console.log (this.dailyTotal);
     }
   }
-}
-        
+};
 
 function randomTotal(a, b){
   let total = Math.floor(Math.random() * (b - a + 1) + a);
   return total;
 }
-seattle.getCookies();
-seattle.getDailyTotal();
-tokyo.getCookies();
-tokyo.getDailyTotal();
-dubai.getCookies();
-dubai.getDailyTotal();
-paris.getCookies();
-paris.getDailyTotal();
-lima.getCookies();
-lima.getDailyTotal();
 
 const cookieShops = [seattle, tokyo, dubai, paris, lima];
 const shopDivElem = document.getElementById("shops");
 
-function renderShop(shop){
-    let articleElem = document.createElement('article');
-    shopDivElem.appendChild(articleElem);
-    let h2Elem = document.createElement('h2');
-    h2Elem.textContent = shop.Name;
-    articleElem.appendChild(h2Elem);
-    let pElem = document.createElement('p');
-    pElem.textContent = 'Cookies Sold by the Hour:';
-    articleElem.appendChild(pElem);
-    let ulElem = document.createElement('ul');
-    articleElem.appendChild(ulElem);
-    for(let i = 0; i < shop.hourlyTotal.length; i++){
-      let liElem = document.createElement('li');
-      liElem.textContent = `${shop.hours[i]}: ${shop.hourlyTotal[i]} cookies`;
-      ulElem.appendChild(liElem);
-    }
+for(let i = 0; i < cookieShops.length; i++){
+  getResults(cookieShops[i]);
+  renderShop(cookieShops[i]);
+}
+
+function renderShop(shop) {
+  let articleElem = document.createElement('article');
+  shopDivElem.appendChild(articleElem);
+  let h2Elem = document.createElement('h2');
+  h2Elem.textContent = shop.Name;
+  articleElem.appendChild(h2Elem);
+  let pElem = document.createElement('p');
+  pElem.textContent = 'Cookies Sold by the Hour:';
+  articleElem.appendChild(pElem);
+  let ulElem = document.createElement('ul');
+  articleElem.appendChild(ulElem);
+  for(let i = 0; i < shop.hourlyTotal.length; i++){
     let liElem = document.createElement('li');
-    liElem.textContent = `Total: ${shop.dailyTotal}`;
+    liElem.textContent = `${shop.hours[i]}: ${shop.hourlyTotal[i]} cookies`;
     ulElem.appendChild(liElem);
   }
-  
-  for (let i = 0; i < cookieShops.length; i++){
-      renderShop(cookieShops[i]);
-    }
+  let liElem = document.createElement('li');
+  liElem.textContent = `Total: ${shop.dailyTotal}`;
+  ulElem.appendChild(liElem);
+}
+
+function getResults(store) {
+  store.getCookies();
+  store.getDailyTotal();
+}
