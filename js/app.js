@@ -77,23 +77,12 @@ function renderTableHead(){
       let thElem = makeElement('th', trElem, allShops[0].hours[i]);
     }
   }
+  makeElement('th', trElem, 'Totals');
 }
 renderTableHead();
-
-function renderTableBody(){
-  let tbodyElem = makeElement('tbody', tableElem, null);
-  for(let i = 0; i < allShops.length; i++){
-    let trElem2 = makeElement('tr', tbodyElem, null);
-    let tdElem = makeElement('td', trElem2, allShops[i].name);
-    for(let j = 0; j < allShops[i].hourlyTotal.length; j++){
-      makeElement('td', trElem2, allShops[i].hourlyTotal[j]);
-    }
-  }
-}
-
-renderTableBody();
-const totalCookiesFinal = [];
 let totalCookiesAll = 0;
+let totalCookiesShops = 0;
+const totalCookiesFinal = [];
 
 function getTotals(){
   for (let i = 0; i < allShops[0].hourlyTotal.length; i++){
@@ -107,6 +96,25 @@ function getTotals(){
   totalCookiesFinal.push(totalCookiesAll);
 }
 getTotals();
+
+function renderTableBody(){
+  let storeTotal = 0;
+  let tbodyElem = makeElement('tbody', tableElem, null);
+  for(let i = 0; i < allShops.length; i++){
+    totalCookiesShops = 0;
+    let trElem2 = makeElement('tr', tbodyElem, null);
+    let tdElem = makeElement('td', trElem2, allShops[i].name);
+    for(let j = 0; j < allShops[i].hourlyTotal.length; j++){
+      makeElement('td', trElem2, allShops[i].hourlyTotal[j]);
+      totalCookiesShops += allShops[i].hourlyTotal[j];
+    }
+    const storeTotalTHElem = makeElement('th', trElem2, totalCookiesShops);
+  }
+
+}
+
+renderTableBody();
+
 
 function renderTableFoot(){
   let tfootElem = makeElement('tfoot', tableElem, null);
