@@ -117,16 +117,3 @@ function renderTableFoot(){
   makeElement('th', trElem, totalCookiesAll);
 }
 renderTableFoot();
-
-
-
-
-
-
-
-
-
-
-
-
-
