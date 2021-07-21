@@ -94,16 +94,18 @@ function renderTableBody(){
 
 renderTableBody();
 const totalCookiesFinal = [];
+let totalCookiesAll = 0;
 
 function getTotals(){
   for (let i = 0; i < allShops[0].hourlyTotal.length; i++){
     let totalCookies = 0;
     for(let j = 0; j < allShops.length; j++){
       totalCookies = totalCookies + allShops[j].hourlyTotal[i];
+      totalCookiesAll = totalCookiesAll + allShops[j].hourlyTotal[i];
     }
     totalCookiesFinal.push(totalCookies);
   }
-  console.log(totalCookiesFinal);
+  totalCookiesFinal.push(totalCookiesAll);
 }
 getTotals();
 
@@ -113,6 +115,7 @@ function renderTableFoot(){
   for(let i = 0; i < allShops[0].hours.length; i++){
     let thElem = makeElement('th', trElem, totalCookiesFinal[i]);
   }
+  makeElement('th', trElem, totalCookiesAll);
 }
 renderTableFoot();
 
