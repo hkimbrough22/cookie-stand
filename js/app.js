@@ -47,9 +47,13 @@ console.log(allShops[1]);
 
 const shopDivElem = document.getElementById("shops");
 
+function getResults(store) {
+  store.getCookies();
+  store.getDailyTotal();
+}
+
 for(let i = 0; i < allShops.length; i++){
   getResults(allShops[i]);
-  renderShop(allShops[i]);
 }
 function makeElement(tagName, parentName, textContent){
   let element = document.createElement(tagName);
@@ -60,43 +64,59 @@ function makeElement(tagName, parentName, textContent){
   return element;
 }
 
-function renderShop(shop) {
-  let articleElem = makeElement('article', shopDivElem, null);
-  let h2Elem = makeElement('h2', articleElem, shop.name);
-  let tableElem = makeElement('table', articleElem, null);
+let tableElem = makeElement('table', shopDivElem, null);
+
+function renderTableHead(){
   let theadElem = makeElement('thead', tableElem, null);
   let trElem = makeElement('tr', theadElem, null);
-  for(let i = 0; i < shop.hours.length; i++){
+  for(let i = 0; i < allShops[0].hours.length; i++){
     if(i === 0){
       let thElemBlank = makeElement('th', trElem, null);
-      let thElem = makeElement('th', trElem, shop.hours[i]);
+      let thElem = makeElement('th', trElem, allShops[0].hours[i]);
     }
-    let thElem = makeElement('th', trElem, shop.hours[i]);
+    else{
+      let thElem = makeElement('th', trElem, allShops[0].hours[i]);
+    }
   }
-  let tbody = makeElement('tbody', tableElem, null);
+}
+renderTableHead();
+
+function renderTableBody(){
+  let tbodyElem = makeElement('tbody', tableElem, null);
   for(let i = 0; i < allShops.length; i++){
-    let trElem2 = makeElement('tr', tbody, allShops[i].name);
+    let trElem2 = makeElement('tr', tbodyElem, null);
+    let tdElem = makeElement('td', trElem2, allShops[i].name);
+    for(let j = 0; j < allShops[i].hourlyTotal.length; j++){
+      makeElement('td', trElem2, allShops[i].hourlyTotal[j]);
+    }
   }
-
-
-
-
-  let ulElem = document.createElement('ul');
-  articleElem.appendChild(ulElem);
-  for(let i = 0; i < shop.hourlyTotal.length; i++){
-    let liElem = document.createElement('li');
-    liElem.textContent = `${shop.hours[i]}: ${shop.hourlyTotal[i]} cookies`;
-    ulElem.appendChild(liElem);
-  }
-  let liElem = document.createElement('li');
-  liElem.textContent = `Total: ${shop.dailyTotal}`;
-  ulElem.appendChild(liElem);
 }
 
-function getResults(store) {
-  store.getCookies();
-  store.getDailyTotal();
+renderTableBody();
+const totalCookiesFinal = [];
+
+function getTotals(){
+  for (let i = 0; i < allShops[0].hourlyTotal.length; i++){
+    let totalCookies = 0;
+    for(let j = 0; j < allShops.length; j++){
+      totalCookies = totalCookies + allShops[j].hourlyTotal[i];
+    }
+    totalCookiesFinal.push(totalCookies);
+  }
+  console.log(totalCookiesFinal);
 }
+getTotals();
+
+function renderTableFoot(){
+  let tfootElem = makeElement('tfoot', tableElem, null);
+  let trElem = makeElement('tr', tfootElem, 'Totals');
+  for(let i = 0; i < allShops[0].hours.length; i++){
+    let thElem = makeElement('th', trElem, totalCookiesFinal[i]);
+  }
+}
+renderTableFoot();
+
+
 
 
 
