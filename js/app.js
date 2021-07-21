@@ -43,7 +43,6 @@ addAShop('Tokyo', 3, 24, 1.2, ['6 am', '7 am', '8 am', '9 am', '10 am', '11 am',
 addAShop('Dubai', 11, 38, 3.7, ['6 am', '7 am', '8 am', '9 am', '10 am', '11 am', '12 pm', '1 pm', '2 pm', '3 pm', '4 pm', '5 pm', '6 pm', '7 pm']);
 addAShop('Paris', 20, 38, 2.3, ['6 am', '7 am', '8 am', '9 am', '10 am', '11 am', '12 pm', '1 pm', '2 pm', '3 pm', '4 pm', '5 pm', '6 pm', '7 pm']);
 addAShop('Lima', 2, 16, 4.6, ['6 am', '7 am', '8 am', '9 am', '10 am', '11 am', '12 pm', '1 pm', '2 pm', '3 pm', '4 pm', '5 pm', '6 pm', '7 pm']);
-console.log(allShops[1]);
 
 const shopDivElem = document.getElementById("shops");
 
@@ -118,16 +117,3 @@ function renderTableFoot(){
   makeElement('th', trElem, totalCookiesAll);
 }
 renderTableFoot();
-
-
-
-
-
-
-
-
-
-
-
-
-
