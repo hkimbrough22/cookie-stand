@@ -4,6 +4,11 @@ h1 {
   font-size: xx-large;
 }
 
+h2 {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 25px;
+}
+
 h3 {
   font-size: larger;
   padding-bottom: 5px;
@@ -12,9 +17,14 @@ h3 {
 p {
   font-style: italic;
   font-size: large;
-  overflow: scroll;
   height: 350px;
-  width:480px;
+  width:200px;
+}
+
+img {
+  border: thick solid;
+  border-width: 10px;
+  border-color: green rgb(223, 113, 101);
 }
 
 header {
@@ -74,9 +84,21 @@ section:nth-child(3) {
 }
 
 section:nth-child(3) img {
+  border: thick solid;
+  border-width: 10px;
+  border-color: green rgb(223, 113, 101);
   height: 375px;
   margin: auto 15px;
 }
+
+section:nth-child(3) p {
+  font-style: italic;
+  font-size: large;
+  height: 350px;
+  width:200px;
+  overflow: scroll;
+}
+
 
 section:nth-child(4) {
   height: 30em;
