@@ -45,6 +45,40 @@ addAShop('Paris', 20, 38, 2.3, ['6 am', '7 am', '8 am', '9 am', '10 am', '11 am'
 addAShop('Lima', 2, 16, 4.6, ['6 am', '7 am', '8 am', '9 am', '10 am', '11 am', '12 pm', '1 pm', '2 pm', '3 pm', '4 pm', '5 pm', '6 pm', '7 pm']);
 
 const shopDivElem = document.getElementById("shops");
+const formElem = document.getElementById("addAShopForm");
+
+formElem.addEventListener('submit', handleSubmit);
+
+function handleSubmit(e) {
+  e.preventDefault();
+  let name = e.target.name.value;
+  let minimum = parseInt(e.target.minimum.value);
+  let maximum = parseInt(e.target.maximum.value);
+  let average = parseInt(e.target.average.value);
+  let hours;
+  if (e.target.hoursYes.checked){
+    hours = ['6 am', '7 am', '8 am', '9 am', '10 am', '11 am', '12 pm', '1 pm', '2 pm', '3 pm', '4 pm', '5 pm', '6 pm', '7 pm'];
+  }
+  else {
+    alert('The store should be open from 6:00 AM to 8:00PM.');
+    hours = ['6 am', '7 am', '8 am', '9 am', '10 am', '11 am', '12 pm', '1 pm', '2 pm', '3 pm', '4 pm', '5 pm', '6 pm', '7 pm'];
+    }
+    tfootElem.innerHTML = '';
+    addAShop(name, minimum, maximum, average, hours);
+    getResults(allShops[allShops.length-1]);
+    var newTBodyElem = document.createElement('tbody');
+    totalCookiesFinal = [];
+    getTotals();
+    console.log(allShops, totalCookiesFinal);
+    tbodyElem.replaceWith(newTBodyElem);
+    renderTableBody();
+    var newTFootElem = document.createElement('tfoot');
+    renderTableFoot();
+    // tfootElem.replaceWith(newTFootElem);
+  }
+
+  // table.innerHTML = '';
+  
 
 function getResults(store) {
   store.getCookies();
@@ -54,6 +88,7 @@ function getResults(store) {
 for(let i = 0; i < allShops.length; i++){
   getResults(allShops[i]);
 }
+
 function makeElement(tagName, parentName, textContent){
   let element = document.createElement(tagName);
   if(textContent){
@@ -80,11 +115,13 @@ function renderTableHead(){
   makeElement('th', trElem, 'Totals');
 }
 renderTableHead();
+
 let totalCookiesAll = 0;
 let totalCookiesShops = 0;
-const totalCookiesFinal = [];
+let totalCookiesFinal = [];
 
 function getTotals(){
+  totalCookiesAll = 0;
   for (let i = 0; i < allShops[0].hourlyTotal.length; i++){
     let totalCookies = 0;
     for(let j = 0; j < allShops.length; j++){
@@ -97,9 +134,11 @@ function getTotals(){
 }
 getTotals();
 
+let tbodyElem;
+
 function renderTableBody(){
   let storeTotal = 0;
-  let tbodyElem = makeElement('tbody', tableElem, null);
+  tbodyElem = makeElement('tbody', tableElem, null);
   for(let i = 0; i < allShops.length; i++){
     totalCookiesShops = 0;
     let trElem2 = makeElement('tr', tbodyElem, null);
@@ -112,12 +151,11 @@ function renderTableBody(){
   }
 
 }
-
 renderTableBody();
 
+let tfootElem = makeElement('tfoot', tableElem, null);
 
 function renderTableFoot(){
-  let tfootElem = makeElement('tfoot', tableElem, null);
   let trElem = makeElement('tr', tfootElem, 'Totals');
   for(let i = 0; i < allShops[0].hours.length; i++){
     let thElem = makeElement('th', trElem, totalCookiesFinal[i]);
