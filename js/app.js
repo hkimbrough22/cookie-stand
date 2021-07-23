@@ -60,25 +60,35 @@ function handleSubmit(e) {
     hours = ['6 am', '7 am', '8 am', '9 am', '10 am', '11 am', '12 pm', '1 pm', '2 pm', '3 pm', '4 pm', '5 pm', '6 pm', '7 pm'];
   }
   else {
-    alert('The store should be open from 6:00 AM to 8:00PM.');
-    hours = ['6 am', '7 am', '8 am', '9 am', '10 am', '11 am', '12 pm', '1 pm', '2 pm', '3 pm', '4 pm', '5 pm', '6 pm', '7 pm'];
-    }
-    tfootElem.innerHTML = '';
-    addAShop(name, minimum, maximum, average, hours);
-    getResults(allShops[allShops.length-1]);
-    var newTBodyElem = document.createElement('tbody');
-    totalCookiesFinal = [];
-    getTotals();
-    console.log(allShops, totalCookiesFinal);
-    tbodyElem.replaceWith(newTBodyElem);
-    renderTableBody();
-    var newTFootElem = document.createElement('tfoot');
-    renderTableFoot();
-    // tfootElem.replaceWith(newTFootElem);
+  alert('The store should be open from 6:00 AM to 8:00PM.');
+  hours = ['6 am', '7 am', '8 am', '9 am', '10 am', '11 am', '12 pm', '1 pm', '2 pm', '3 pm', '4 pm', '5 pm', '6 pm', '7 pm'];
+  }
+  tableElem.innerHTML = '';
+  addAShop(name, minimum, maximum, average, hours); 
+  for(let i = 0; i < allShops.length; i++){
+    getResults(allShops[i]);
+  }
+  renderTableHead();
+  renderTableBody();
+  getTotals();
+  renderTableFoot();
+  
+  
+  
+  
+  
+  // var newTBodyElem = document.createElement('tbody');
+  // totalCookiesFinal = [];
+  // getTotals();
+  // console.log(allShops, totalCookiesFinal);
+  // tbodyElem.replaceWith(newTBodyElem);
+  // renderTableBody();
+  // var newTFootElem = document.createElement('tfoot');
+  // renderTableFoot();
   }
 
   // table.innerHTML = '';
-  
+
 
 function getResults(store) {
   store.getCookies();
@@ -121,6 +131,7 @@ let totalCookiesShops = 0;
 let totalCookiesFinal = [];
 
 function getTotals(){
+  totalCookiesFinal = [];
   totalCookiesAll = 0;
   for (let i = 0; i < allShops[0].hourlyTotal.length; i++){
     let totalCookies = 0;
@@ -153,9 +164,10 @@ function renderTableBody(){
 }
 renderTableBody();
 
-let tfootElem = makeElement('tfoot', tableElem, null);
+let tfootElem = 0; 
 
 function renderTableFoot(){
+  tfootElem = makeElement('tfoot', tableElem, null);
   let trElem = makeElement('tr', tfootElem, 'Totals');
   for(let i = 0; i < allShops[0].hours.length; i++){
     let thElem = makeElement('th', trElem, totalCookiesFinal[i]);
